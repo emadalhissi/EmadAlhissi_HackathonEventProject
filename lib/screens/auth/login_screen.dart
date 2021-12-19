@@ -1,7 +1,9 @@
-
+import 'package:emad_alhissi_hackathon/api/controllers/auth_api_controller.dart';
+import 'package:emad_alhissi_hackathon/shared_preferences/shared_preferences_controller.dart';
+import 'package:emad_alhissi_hackathon/widgets/input_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -34,210 +36,125 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: EdgeInsets.only(
-          top: 68.h,
-          left: 24.w,
-          right: 24.w,
-          bottom: 54.h,
-        ),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: 44.h,
-                child: Text(
-                  // AppLocalizations.of(context)!.loginScreen_screenMainTitle,
-                  '',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 160.h),
+            Center(
+              child: Text(
+                'UCAS Events',
+                style: TextStyle(
+                  fontSize: 35.sp,
+                  color: Color(0XFF253975),
+                  fontFamily: 'Pacifico',
                 ),
               ),
-              SizedBox(height: 24.h),
-              Container(
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      // AppLocalizations.of(context)!.loginScreen_textField1_label,
-                      '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                        color: Color(0xff636363),
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-                    // InputTextField(
-                    //   controller: _mobileEditingController,
-                    //   // hintText: AppLocalizations.of(context)!.loginScreen_textField1_hint,
-                    //   '',
-                    //   obscure: false,
-                    //   hasIcon: false,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       _mobileEditingController;
-                    //     });
-                    //   },
-                    // ),
-                  ],
-                ),
+            ),
+            SizedBox(height: 50.h),
+            Text(
+              'Welcome to back',
+              style: TextStyle(
+                color: Color(0xff443F5D),
+                fontSize: 11.sp,
+                fontFamily: 'Cairo',
               ),
-              SizedBox(height: 16.h),
-              Container(
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      // AppLocalizations.of(context)!.loginScreen_textField2_label
-                      '',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                        color: Color(0xff636363),
-                      ),
-                    ),
-                    SizedBox(height: 12.h),
-                    // InputTextField(
-                    //   controller: _passwordEditingController,
-                    //   hintText: AppLocalizations.of(context)!.loginScreen_textField2_hint,
-                    //   obscure: true,
-                    //   hasIcon: true,
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       _passwordEditingController;
-                    //     });
-                    //   },
-                    // ),
-                  ],
-                ),
+            ),
+            SizedBox(height: 10.h),
+            Text(
+              'Login with',
+              style: TextStyle(
+                color: Color(0xff253975),
+                fontSize: 22.sp,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(height: 16.h),
-              Container(
-                alignment: Alignment.center,
-                child: TextButton(
-                  child: Text(
-                    // AppLocalizations.of(context)!.loginScreen_forgotPasswordQuestion,
-                    '',
-                    style: TextStyle(
-                      color: Color(0xff2D9CDB),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                    ),
-                  ),
-                  onPressed: () {
-                    Future.delayed(Duration(seconds: 1), () {
-                      Navigator.pushNamed(context, '/forget_password_screen');
-                    });
-                  },
-                ),
+            ),
+            SizedBox(height: 32.h),
+            Text(
+              'Phone',
+              style: TextStyle(
+                color: Color(0xff040404),
+                fontSize: 15.sp,
               ),
-              SizedBox(height: 24.h),
-              ElevatedButton(
-                onPressed: runSingInButton()
-                    ? () async {
-                        await performLogin();
-                      }
-                    : null,
-                child: Text(
-                  // AppLocalizations.of(context)!.loginScreen_singInButton,
-                  '',
-                  style: TextStyle(
-                    color: runSingInButton() ? Color(0xff0B0B0B) : Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xffFFCA27),
-                  minimumSize: Size(327.w, 44.h),
-                  shadowColor: Colors.transparent,
+            ),
+            SizedBox(height: 10.h),
+            InputTextField(
+              hint: 'Enter your phone',
+              editingController: _mobileEditingController,
+              obscure: false,
+              borderColor: Color(0xff707070),
+              function: () {
+                setState(() {
+                  _mobileEditingController;
+                });
+              },
+            ),
+            SizedBox(height: 23.h),
+            Text(
+              'Password',
+              style: TextStyle(
+                color: Color(0xff040404),
+                fontSize: 15.sp,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            InputTextField(
+              hint: '*********',
+              editingController: _passwordEditingController,
+              obscure: true,
+              borderColor: Color(0xff707070),
+              function: () {
+                setState(() {
+                  _passwordEditingController;
+                });
+              },
+            ),
+            Spacer(),
+            ElevatedButton(
+              onPressed: () => performLogin(),
+              child: Text('Sing in'),
+              style: ElevatedButton.styleFrom(
+                  primary: Color(0xff253975),
+                  minimumSize: Size(double.infinity, 50.h),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.circular(15.r),
-                  ),
-                ),
-              ),
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    // AppLocalizations.of(context)!.loginScreen_haveAnAccountQuestion,
-                    '',
-                    style: TextStyle(
-                      color: Color(0xff636363),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Future.delayed(Duration(seconds: 1), () {
-                        Navigator.pushNamed(context, '/register_screen');
-                      });
-                    },
-                    child: Text(
-                      // AppLocalizations.of(context)!.loginScreen_signUpButton,
-                      '',
-                      style: TextStyle(
-                        color: Color(0xffFFCA27),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    borderRadius: BorderRadius.circular(16.r),
+                  )),
+            ),
+            Spacer(),
+          ],
         ),
       ),
     );
   }
 
-  Future<void> performLogin() async {
-    if (checkData()) {
-      await login();
+    Future<void> performLogin() async {
+      if (checkData()) {
+        await login();
+      }
     }
-  }
 
-  bool checkData() {
-    if (_mobileEditingController.text.isNotEmpty &&
-        _passwordEditingController.text.isNotEmpty) {
-      return true;
+    bool checkData() {
+      if (_mobileEditingController.text.isNotEmpty &&
+          _passwordEditingController.text.isNotEmpty) {
+        return true;
+      }
+      return false;
     }
-    return false;
-  }
 
-  bool runSingInButton() {
-    if (_mobileEditingController.text.isNotEmpty &&
-        _passwordEditingController.text.isNotEmpty) {
-      return true;
+    Future<void> login() async {
+
+      bool status = await AuthApiController().login(
+        context,
+        mobile: _mobileEditingController.text,
+        password: _passwordEditingController.text,
+      );
+      if (status) {
+        print('test');
+        SharedPreferencesController().login();
+        Future.delayed(const Duration(seconds: 1), () {
+          // SharedPreferencesController().setFirstVisit();
+          Navigator.pushReplacementNamed(context, '/categories_screen');
+        });
+      }
     }
-    return false;
-  }
-
-  Future<void> login() async {
-    // bool status = await AuthApiController().login(
-    //   context,
-    //   mobile: _mobileEditingController.text,
-    //   password: _passwordEditingController.text,
-    // );
-    // if (status) {
-    //   SharedPreferencesController().login();
-    //   Future.delayed(const Duration(seconds: 1), () {
-    //     SharedPreferencesController().setFirstVisit();
-    //     Navigator.pushReplacementNamed(context, '/main_screen');
-    //   });
-    // }
-  }
 }

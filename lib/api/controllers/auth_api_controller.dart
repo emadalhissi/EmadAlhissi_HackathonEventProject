@@ -1,49 +1,50 @@
 import 'dart:convert';
 
+import 'package:emad_alhissi_hackathon/api/api_helper.dart';
+import 'package:emad_alhissi_hackathon/api/api_settings.dart';
+import 'package:emad_alhissi_hackathon/shared_preferences/shared_preferences_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-// class AuthApiController with ApiHelper, Helpers {
-//   Future<bool> login(
-//     BuildContext context, {
-//     required String mobile,
-//     required String password,
-//   }) async {
-//     var url = Uri.parse(ApiSettings.login);
-//     var response = await http.post(
-//       url,
-//       body: {
-//         'mobile': mobile,
-//         'password': password,
-//       },
-//       headers: headers,
-//     );
-//     if (response.statusCode == 200) {
-//       var baseApiResponse =
-//           BaseApiObjectResponse<User>.fromJson(jsonDecode(response.body));
-//       showSnackBar(context, message: baseApiResponse.message);
-//       Map<String, dynamic> responseBodyData = jsonDecode(response.body)['data'];
-//       if (responseBodyData.containsKey('token')) {
-//         SharedPreferencesController()
-//             .setToken(token: responseBodyData['token']);
-//       }
-//       return true;
-//     } else if (response.statusCode == 400) {
-//       var message = jsonDecode(response.body)['message'];
-//       showSnackBar(
-//         context,
-//         message: message,
-//         error: true,
-//       );
-//     } else {
-//       showSnackBar(
-//         context,
-//         message: 'Something went wrong, please try again!',
-//         error: true,
-//       );
-//     }
-//     return false;
-//   }
+class AuthApiController with ApiHelper {
+  Future<bool> login(
+    BuildContext context, {
+    required String mobile,
+    required String password,
+  }) async {
+    var url = Uri.parse(ApiSettings.login);
+    var response = await http.post(
+      url,
+      body: {
+        'mobile': mobile,
+        'password': password,
+      },
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      var message = jsonDecode(response.body)['message'];
+      showSnackBar(context, message: message);
+      Map<String, dynamic> responseBodyData = jsonDecode(response.body)['data'];
+      await SharedPreferencesController()
+          .setToken(token: responseBodyData['token']);
+      return true;
+    } else if (response.statusCode == 400) {
+      var message = jsonDecode(response.body)['message'];
+      showSnackBar(
+        context,
+        message: message,
+        error: true,
+      );
+    } else {
+      showSnackBar(
+        context,
+        message: 'Something went wrong, please try again!',
+        error: true,
+      );
+    }
+    return false;
+  }
 //
 //   Future<bool> register(
 //     BuildContext context, {
@@ -260,3 +261,4 @@ import 'package:http/http.dart' as http;
 //     return false;
 //   }
 // }
+}
