@@ -45,6 +45,25 @@ class AuthApiController with ApiHelper {
     }
     return false;
   }
+
+  Future<bool> logout(BuildContext context) async {
+    var url = Uri.parse(ApiSettings.logout);
+    var response = await http.get(
+      url,
+      headers: headers,
+    );
+    if (response.statusCode == 200 || response.statusCode == 401) {
+      var message = jsonDecode(response.body)['message'];
+      showSnackBar(
+        context,
+        message: message,
+      );
+      return true;
+    }
+    return false;
+  }
+}
+
 //
 //   Future<bool> register(
 //     BuildContext context, {
@@ -249,16 +268,4 @@ class AuthApiController with ApiHelper {
 //     return false;
 //   }
 //
-//   Future<bool> logout() async {
-//     var url = Uri.parse(ApiSettings.logout);
-//     var response = await http.get(
-//       url,
-//       headers: headers,
-//     );
-//     if (response.statusCode == 200 || response.statusCode == 401) {
-//       return true;
-//     }
-//     return false;
-//   }
-// }
-}
+

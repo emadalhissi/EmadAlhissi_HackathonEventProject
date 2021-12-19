@@ -15,7 +15,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 3), (){
-      String route = SharedPreferencesController().loggedIn ? '/categories_screen' : '/login_screen';
+      String route = SharedPreferencesController().loggedIn ? '/categories_screen' : '/out_boarding_screen';
       Navigator.pushReplacementNamed(context, route);
     });
   }

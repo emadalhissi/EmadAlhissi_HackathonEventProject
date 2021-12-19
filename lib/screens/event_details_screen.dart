@@ -23,7 +23,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          'Event Name',
+          widget.event.name,
           style: TextStyle(
             fontSize: 18.sp,
             color: Color(0xff3E3A57),
@@ -98,23 +98,6 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   height: 25.h,
-                      //   // width: 80.w,
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.grey.withOpacity(0.7),
-                      //     borderRadius: BorderRadius.circular(25),
-                      //   ),
-                      //   child: Row(
-                      //     children: [
-                      //       Icon(Icons.star),
-                      //       SizedBox(width: 2.w),
-                      //       Text(
-                      //         '2 Hours',
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -201,6 +184,14 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                   ),
                 ),
               ],
+            ),
+            SizedBox(height: 6.h),
+            Text(
+              '${widget.event.address}',
+              style: TextStyle(
+                color: Color(0xff807C94),
+                fontSize: 12.sp,
+              ),
             ),
             SizedBox(height: 26.h),
             Row(

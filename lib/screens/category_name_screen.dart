@@ -99,7 +99,7 @@ class _CategoryNameScreenState extends State<CategoryNameScreen> {
                       child: CircleAvatar(
                         radius: 45.r,
                         backgroundColor: Colors.white,
-                        backgroundImage: AssetImage('images/girl.png'),
+                        backgroundImage: NetworkImage(widget.category.image),
                       ),
                     ),
                   ],

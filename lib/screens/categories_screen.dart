@@ -1,6 +1,8 @@
+import 'package:emad_alhissi_hackathon/api/controllers/auth_api_controller.dart';
 import 'package:emad_alhissi_hackathon/api/controllers/category_api_controller.dart';
 import 'package:emad_alhissi_hackathon/models/api_models/category.dart';
 import 'package:emad_alhissi_hackathon/screens/category_name_screen.dart';
+import 'package:emad_alhissi_hackathon/shared_preferences/shared_preferences_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,6 +40,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           ),
         ),
         actions: [
+
           Padding(
             padding: const EdgeInsetsDirectional.only(end: 16),
             child: Container(
@@ -55,6 +58,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   size: 30.w,
                 ),
               ),
+            ),
+          ),
+          IconButton(
+            onPressed: () async => await logout(),
+            icon: Icon(
+              Icons.logout,
+              color: Color(0xff4E486A),
+              size: 30.w,
             ),
           ),
         ],
@@ -167,5 +178,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> logout() async {
+    bool status = await AuthApiController().logout(context);
+    if(status) {
+      SharedPreferencesController().logout();
+      Navigator.pushReplacementNamed(context, '/login_screen');
+    }
   }
 }
